@@ -1,11 +1,10 @@
-import Layout from './Layout';
-import { AppStyles } from './App.styles';
+import Main from './Layout/main';
 
 function App() {
     return (
-        <AppStyles>
-            <Layout />
-        </AppStyles>
+        <>
+            <Main />
+        </>
     );
 }
 
