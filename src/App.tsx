@@ -1,8 +1,11 @@
+import Layout from './Layout';
+import { AppStyles } from './App.styles';
+
 function App() {
     return (
-        <div className="App">
-            <h1>hello</h1>
-        </div>
+        <AppStyles>
+            <Layout />
+        </AppStyles>
     );
 }
 
