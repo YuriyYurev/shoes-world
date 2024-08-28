@@ -118,3 +118,169 @@
 -  Не бойся экспериментировать!  
 -  Изучай документацию React.js, Redux,  Material-UI, Cloud Storage  (например, Firebase Storage). 
 -  Используй онлайн-ресурсы (stackoverflow,  видео уроки), чтобы найти ответы на вопросы.  
+
+```
+my-shop/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── src/
+│   ├── components/
+│   │   ├── ProductItem/
+│   │   │   ├── ProductItem.tsx
+│   │   │   └── ProductItem.styles.tsx
+│   │   ├── ProductList/
+│   │   │   ├── ProductList.tsx
+│   │   │   └── ProductList.styles.tsx
+│   │   ├── Cart/
+│   │   │   ├── Cart.tsx
+│   │   │   └── Cart.styles.tsx
+│   │   ├── CartModal/
+│   │   │   ├── CartModal.tsx
+│   │   │   └── CartModal.styles.tsx
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   │   └── Header.styles.tsx
+│   │   ├── Footer/
+│   │   │   ├── Footer.tsx
+│   │   │   └── Footer.styles.tsx
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   └── Button.styles.tsx
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   ├── Home.tsx
+│   │   │   └── Home.styles.tsx
+│   │   ├── Products/
+│   │   │   ├── Products.tsx
+│   │   │   └── Products.styles.tsx
+│   │   ├── Cart/
+│   │   │   ├── Cart.tsx
+│   │   │   └── Cart.styles.tsx
+│   │   └── ...
+│   ├── services/
+│   │   ├── firebase/
+│   │   │   └── firebase.ts
+│   │   ├── api/
+│   │   │   └── productsApi.ts
+│   │   └── ...
+│   ├── store/
+│   │   ├── rootSlice.ts
+│   │   ├── cartSlice.ts
+│   │   ├── productsSlice.ts
+│   │   ├── store.ts
+│   │   └── ...
+│   ├── hooks/
+│   │   ├── useProducts.ts
+│   │   ├── useCart.ts
+│   │   └── ...
+│   ├── App.tsx
+│   ├── index.tsx
+│   ├── index.css
+│   └── ...
+├── package.json
+├── tsconfig.json
+├── .eslintrc.json
+└── ...
+
+```
+
+**Объяснение:**
+
+* **`public/`:**  Статические файлы, которые будут использоваться в вашем приложении (например, `index.html`, `favicon.ico`).
+* **`src/`:**  
+    * **`components/`:**  Компоненты пользовательского интерфейса, например, `ProductItem`, `ProductList`, `Cart`, `CartModal`, `Header`, `Footer`. 
+    * **`pages/`:**  Страницы вашего приложения (например, `Home`, `Products`, `Cart`). 
+    * **`services/`:**  Файлы, отвечающие за взаимодействие с Firebase Storage (например, `firebase.ts`) или с API (например, `productsApi.ts`).
+    * **`store/`:**  Файлы, отвечающие за управление состоянием приложения с помощью Redux (например, `store.ts`, `productsSlice.ts`, `cartSlice.ts`).
+    * **`hooks/`:**  Кастомные хуки, которые могут быть использованы в разных компонентах, например, `useProducts` для работы с данными о товарах.
+    * **`App.tsx`:**  Основной компонент вашего приложения.
+    * **`index.tsx`:**  Точка входа в приложение.
+    * **`index.css`:**  Файл стилей приложения.
+
+**Дополнительные рекомендации:**
+
+* **Используйте  стили  CSS-in-JS  (например,  `styled-components`  или  Material-UI  стили):**  Это  упрощает  стилизацию  компонентов  и  делает  код  более  организованным.
+* **Разбейте  большие  компоненты  на  более  мелкие:**  Это  улучшит  читаемость  и  обслуживание  кода.
+* **Используйте  принципы  SOLID  для  организации  кода:**  Это  поможет  сделать  код  более  гибким,  расширяемым  и  легко  тестируемым.
+
+**Пример:**
+
+```
+src/
+└── components/
+    └── ProductItem/
+        ├── ProductItem.tsx
+        └── ProductItem.styles.tsx
+
+src/
+└── components/
+    └── ProductItem/
+        └── ProductItem.tsx
+
+```
+
+**Пример  `ProductItem.tsx`:**
+
+```typescript
+import React from 'react';
+import { Grid, Typography, Button } from '@mui/material';
+import { Product } from '../../store/productsSlice';
+import { useCart } from '../../hooks/useCart';
+import { ProductItemStyles } from './ProductItem.styles';
+
+interface ProductItemProps {
+  product: Product;
+}
+
+const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
+  return (
+    <ProductItemStyles>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <img src={product.imageUrl} alt={product.name} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography variant="h6" gutterBottom>
+            {product.name}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            {product.description}
+          </Typography>
+          <Typography variant="h5" gutterBottom>
+            ${product.price}
+          </Typography>
+          <Button variant="contained" onClick={handleAddToCart}>
+            Добавить в корзину
+          </Button>
+        </Grid>
+      </Grid>
+    </ProductItemStyles>
+  );
+};
+
+export default ProductItem;
+```
+
+**Пример `ProductItem.styles.tsx`:**
+
+```typescript
+import styled from '@emotion/styled';
+
+export const ProductItemStyles = styled('div')`
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+```
