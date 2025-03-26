@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import * as classes from "./Counter.module.scss";
 export default function Counter() {
-  console.log(classes);
-
   const [count, setCount] = useState(0);
   return (
     <div>
