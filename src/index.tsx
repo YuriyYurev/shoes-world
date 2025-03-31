@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import ThemeProvider from "./theme/ThemeProvider";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -10,6 +11,8 @@ root.render(
       v7_startTransition: true,
     }}
   >
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </BrowserRouter>
 );
