@@ -1,11 +1,8 @@
-import React, { useContext, useState } from "react";
 import "./styles/index.scss";
-import { Suspense } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
-import { MainPage } from "pages/MainPage";
-import { AboutPage } from "pages/AboutPage";
+import { NavLink } from "react-router-dom";
 import { useTheme } from "app/providers/ThemeProvider";
 import { classNames } from "shared/lib/ClassNames/classNames";
+import { AppRouter } from "app/providers/router";
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -15,12 +12,7 @@ export default function App() {
       </button>
       <NavLink to={"/"}>Главная</NavLink>
       <NavLink to={"/about"}>О компании</NavLink>
-      <Suspense fallback={<div>Згрузка</div>}>
-        <Routes>
-          <Route index element={<MainPage />} />
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
-      </Suspense>
+      <AppRouter />
     </div>
   );
 }
