@@ -1,7 +1,10 @@
 .Navbar {
-  width: 100%;
   height: var(--navar-height);
   background-color: var(--inverted-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 .links {
   margin-left: auto;
